@@ -8,6 +8,11 @@ var engine, world;
 var box,ground,bar1,bar2,bar3,barImage,rope;
 var score = 0  ;
 var gameState = "onSling";
+var bg = "BG1.png";
+
+function preload() {
+    getBackgroungImg();
+}
 
 function setup(){
     var canvas = createCanvas(1500,700);
@@ -53,13 +58,14 @@ function setup(){
 
     blockl21 = new Block2(1150,188,40,60);
     
-    rope = new SlingShot(box.body,{x:150,y:350});
-    rope.shapeColor="green";
-    
+    rope = new SlingShot(box.body,{x:150,y:350});    
 }  
 
 function draw(){
-    background(55,43,43);
+   if(backgroundImg){
+        background(backgroundImg);
+   }
+	
     Engine.update(engine);
 
     textSize(18);
@@ -150,8 +156,7 @@ function mouseReleased(){
 }
 
 function keyPressed(){
-	if(keyCode === 32)
-	{
+	if(keyCode === 32){
 		Matter.Body.setPosition(box.body,{x:235, y:420})
         rope.attach(box.body);
         gameState = "onSling";
@@ -161,4 +166,19 @@ function keyPressed(){
     box.x=200;
     box.y=200;
   }
+}
+
+async function getBackgroungImg(){
+    var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
+
+    var responseJSON = await response.json();
+
+    var datetime = responseJSON.datetime;
+    var hour = datetime.slice(11,13);
+    if(hour>=6 && hour<=19){
+        bg="BG1.jpg";
+    }else{
+        bg="BG2.png";
+    }
+    backgroundImg=loadImage(bg);
 }
