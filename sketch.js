@@ -60,7 +60,8 @@ function draw(){
     background(55,43,43);
     Engine.update(engine);
 
-    nostroke();
+    strokeWeight(2);
+    stroke(0);
 	
     textSize(18);
     textFont("Georgia");
@@ -161,3 +162,4 @@ function keyPressed(){
     box.y=200;
   }
 }
+
