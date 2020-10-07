@@ -60,6 +60,8 @@ function draw(){
     background(55,43,43);
     Engine.update(engine);
 
+    nostroke();
+	
     textSize(18);
     textFont("Georgia");
     textStyle(BOLD);
